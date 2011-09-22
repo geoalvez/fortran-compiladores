@@ -1,0 +1,25 @@
+
+package compil.fortran;
+
+import java_cup.runtime.*;
+
+parser code
+{:
+:}
+
+action code
+{:
+:}
+
+terminal		ANY;
+terminal		ID;
+terminal		FUNCTION, LT, LE, EQ, NE, GE, GT, AND, OR, NOT, PLUS, MINUS, MULTIPLY, DIVIDE,
+				GOTO, SUBROUTINE, CALL;
+
+non terminal	grammar;
+
+grammar			::=	ANY
+				{:
+				:}
+				
+				;

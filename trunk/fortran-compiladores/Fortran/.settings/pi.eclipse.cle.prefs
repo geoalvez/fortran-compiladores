@@ -1,0 +1,16 @@
+#Thu Sep 22 00:22:54 BRT 2011
+//Fortran.lex/lex-code-method=0
+//Fortran.lex/lex-comply-jlex=false
+//Fortran.lex/lex-output=src
+//Fortran.lex/lex-skip-min=false
+//src/compil/fortran/Fortran.cup/cup-compact-red=false
+//src/compil/fortran/Fortran.cup/cup-debug=false
+//src/compil/fortran/Fortran.cup/cup-expected-conflicts=0
+//src/compil/fortran/Fortran.cup/cup-no-positions=false
+//src/compil/fortran/Fortran.cup/cup-no-scanner=false
+//src/compil/fortran/Fortran.cup/cup-non-terms=false
+//src/compil/fortran/Fortran.cup/cup-output=src
+//src/compil/fortran/Fortran.cup/cup-parser-class=FortranCup
+//src/compil/fortran/Fortran.cup/cup-symbols-class=FortranSym
+//src/compil/fortran/Fortran.cup/cup-symbols-if=true
+eclipse.preferences.version=1

@@ -14,7 +14,7 @@ action code
 terminal		ANY;
 terminal		ID;
 terminal		FUNCTION, LT, LE, EQ, NE, GE, GT, AND, OR, NOT, PLUS, MINUS, MULTIPLY, DIVIDE,
-				GOTO, SUBROUTINE, CALL;
+				GOTO, SUBROUTINE, CALL, IF, THEN, ELSE, DO, WHILE;
 
 non terminal	grammar;
 

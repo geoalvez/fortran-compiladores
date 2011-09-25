@@ -82,6 +82,11 @@ DIVIDE		= '\/'
 "GOTO" { return sym(FortranSym.GOTO); }
 "SUBROUTINE" { return sym(FortranSym.SUBROUTINE); }
 "CALL" { return sym(FortranSym.CALL); }
+"IF" {return sym(FortranSym.IF);}
+"THEN" {return sym(FortranSym.THEN);}
+"ELSE" {return sym(FortranSym.ELSE);}
+"DO" {return sym(FortranSym.DO);}
+"WHILE" {return sym(FortranSym.WHILE);}
 
 {LT} 	{ return sym(FortranSym.LT); }
 {LE} 	{ return sym(FortranSym.LE); }

@@ -78,15 +78,18 @@ DIVIDE		= '\/'
 {ANY}		{	return sym(ANY); }
 {ID} { return sym(FortranSym.ID, yytext()); }
 
-"FUNCTION"  { return sym(FortranSym.FUNCTION); }
-"GOTO" { return sym(FortranSym.GOTO); }
-"SUBROUTINE" { return sym(FortranSym.SUBROUTINE); }
-"CALL" { return sym(FortranSym.CALL); }
-"IF" {return sym(FortranSym.IF);}
-"THEN" {return sym(FortranSym.THEN);}
-"ELSE" {return sym(FortranSym.ELSE);}
-"DO" {return sym(FortranSym.DO);}
-"WHILE" {return sym(FortranSym.WHILE);}
+"function"  { return sym(FortranSym.FUNCTION); }
+"goto" { return sym(FortranSym.GOTO); }
+"subroutine" { return sym(FortranSym.SUBROUTINE); }
+"call" { return sym(FortranSym.CALL); }
+"if" {return sym(FortranSym.IF);}
+"then" {return sym(FortranSym.THEN);}
+"else" {return sym(FortranSym.ELSE);}
+"endif" {return sym(FortranSym.ENDIF);}
+"do" {return sym(FortranSym.DO);}
+"while" {return sym(FortranSym.WHILE);}
+"true" {return sym(FortranSym.TRUE);}
+"false" {return sym(FortranSym.FALSE);}
 
 {LT} 	{ return sym(FortranSym.LT); }
 {LE} 	{ return sym(FortranSym.LE); }

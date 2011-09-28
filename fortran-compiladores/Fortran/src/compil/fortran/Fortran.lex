@@ -101,6 +101,7 @@ DIVIDE		= '\/'
 "continue" {return sym(FortranSym.CONTINUE);}
 "stop" {return sym(FortranSym.STOP);}
 "end" {return sym(FortranSym.END);}
+"program" {return sym(FortranSym.PROGRAM);}
 
 {LT} 	{ return sym(FortranSym.LT); }
 {LE} 	{ return sym(FortranSym.LE); }

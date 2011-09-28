@@ -16,13 +16,14 @@ terminal		FUNCTION, GOTO, SUBROUTINE, CALL, COMMA, COLON, DCOLON, CONTINUE, STOP
 				
 terminal		IF, THEN, ELSE, DO, WHILE, TRUE, FALSE, ENDIF, SELECT, ENDDO, CASE;
 terminal		LT, LE, EQ, NE, GE, GT, AND, OR, NOT, PLUS, MINUS, MULTIPLY, DIVIDE;
-terminal		LPAREN, RPAREN, Lb1Def;
+terminal		LPAREN, RPAREN, label, END, PROGRAM;
 
 
 non terminal	logicalOperator, relationalOperator, addOperator, multiplyOperator, unaryOperator, ProgramUnit, MainProgram, grammar;
 non terminal	MainRange, EndStmt, Body, BodyConstruct, SpecificationPartConstruct, DeclarationConstruct, FunctionSubprogram, FunctionRange,
 				SubroutineSubprogram, SubroutineRange, BlockDataSubprogram, BlockDataBody, BlockDataBodyConstruct, SpecificationStmt,
-				ProgramStmt;
+				ProgramStmt, ExecutableConstruct, ImplicitStmt, ParameterStmt, FormatStmt, EntryStmt, TypeDeclarationStmt, FunctionPrefix,
+				FunctionName, FunctionParList, xEOS, SubroutineName, SubroutineParList, BlockDataStmt, ProgramName;
 
 grammar			::=	ANY
 				{:
@@ -41,14 +42,13 @@ multiplyOperator ::= MULTIPLY | DIVIDE;
 unaryOperator ::= MINUS | NOT;
 
 
-
 ProgramUnit ::= MainProgram | FunctionSubprogram | SubroutineSubprogram | BlockDataSubprogram;
 
 MainProgram ::= MainRange | ProgramStmt MainRange;
 
 MainRange ::= Body EndStmt | EndStmt;
 
-EndStmt ::= LblDef END {:System.out.println("EndStmt"); :} ;
+EndStmt ::= label END {:System.out.println("EndStmt"); :} ;
 
 Body ::= BodyConstruct | Body BodyConstruct;                           
 
@@ -60,23 +60,24 @@ DeclarationConstruct ::= TypeDeclarationStmt | SpecificationStmt;
 
 FunctionSubprogram ::= FunctionPrefix FunctionName FunctionRange ;
 
-FunctionRange ::= FunctionParList xEOS Body EndFunctionStmt | FunctionParList xEOS EndStmt 
+FunctionRange ::= FunctionParList xEOS Body EndStmt | FunctionParList xEOS EndStmt ;
 
-SubroutineSubprogram ::= 'subroutine' SubroutineName SubroutineRange ;
+SubroutineSubprogram ::= SUBROUTINE SubroutineName SubroutineRange  {:System.out.println("SubroutineSubprogram"); :} ;
 
 SubroutineRange ::= SubroutineParList xEOS Body EndStmt | SubroutineParList xEOS EndStmt; 
 
 BlockDataSubprogram ::= BlockDataStmt BlockDataBody EndStmt | BlockDataStmt EndStmt ;
 
-BlockDataBody ::= BlockDataBodyConstruct | BlockDataBody BlockDataBodyConstruct ;  %recursão à esquerda... %
+BlockDataBody ::= BlockDataBodyConstruct | BlockDataBody BlockDataBodyConstruct ;  
 
 BlockDataBodyConstruct ::= SpecificationPartConstruct ;
 
-ProgramStmt::= LblDef 'program' ProgramName ;
+ProgramStmt::= label PROGRAM ProgramName {:System.out.println("ProgramStmt"); :} ;
 
-Lb1Def ::= label;
 
-label ::= Icon;
+
+
+
 
 
 

@@ -1,4 +1,3 @@
-
 package compil.fortran;
 
 import java_cup.runtime.*;
@@ -13,13 +12,72 @@ action code
 
 terminal		ANY;
 terminal		ID;
-terminal		FUNCTION, LT, LE, EQ, NE, GE, GT, AND, OR, NOT, PLUS, MINUS, MULTIPLY, DIVIDE,
-				GOTO, SUBROUTINE, CALL, IF, THEN, ELSE, DO, WHILE, TRUE, FALSE, ENDIF;
+terminal		FUNCTION, GOTO, SUBROUTINE, CALL, COMMA, COLON, DCOLON, CONTINUE, STOP, DOT, SEMICOL;
+				
+terminal		IF, THEN, ELSE, DO, WHILE, TRUE, FALSE, ENDIF, SELECT, ENDDO, CASE;
+terminal		LT, LE, EQ, NE, GE, GT, AND, OR, NOT, PLUS, MINUS, MULTIPLY, DIVIDE;
+terminal		LPAREN, RPAREN, Lb1Def;
 
-non terminal	grammar;
+
+non terminal	logicalOperator, relationalOperator, addOperator, multiplyOperator, unaryOperator, ProgramUnit, MainProgram, grammar;
+non terminal	MainRange, EndStmt, Body, BodyConstruct, SpecificationPartConstruct, DeclarationConstruct, FunctionSubprogram, FunctionRange,
+				SubroutineSubprogram, SubroutineRange, BlockDataSubprogram, BlockDataBody, BlockDataBodyConstruct, SpecificationStmt,
+				ProgramStmt;
 
 grammar			::=	ANY
 				{:
 				:}
 				
 				;
+				
+				
+
+
+
+logicalOperator ::= AND | OR;  
+relationalOperator ::= EQ | LT | GT | LE | GE | NE;
+addOperator ::= PLUS | MINUS;
+multiplyOperator ::= MULTIPLY | DIVIDE;
+unaryOperator ::= MINUS | NOT;
+
+
+
+ProgramUnit ::= MainProgram | FunctionSubprogram | SubroutineSubprogram | BlockDataSubprogram;
+
+MainProgram ::= MainRange | ProgramStmt MainRange;
+
+MainRange ::= Body EndStmt | EndStmt;
+
+EndStmt ::= LblDef END {:System.out.println("EndStmt"); :} ;
+
+Body ::= BodyConstruct | Body BodyConstruct;                           
+
+BodyConstruct ::= SpecificationPartConstruct | ExecutableConstruct;
+
+SpecificationPartConstruct ::= ImplicitStmt | ParameterStmt | FormatStmt | EntryStmt | DeclarationConstruct;
+
+DeclarationConstruct ::= TypeDeclarationStmt | SpecificationStmt;
+
+FunctionSubprogram ::= FunctionPrefix FunctionName FunctionRange ;
+
+FunctionRange ::= FunctionParList xEOS Body EndFunctionStmt | FunctionParList xEOS EndStmt 
+
+SubroutineSubprogram ::= 'subroutine' SubroutineName SubroutineRange ;
+
+SubroutineRange ::= SubroutineParList xEOS Body EndStmt | SubroutineParList xEOS EndStmt; 
+
+BlockDataSubprogram ::= BlockDataStmt BlockDataBody EndStmt | BlockDataStmt EndStmt ;
+
+BlockDataBody ::= BlockDataBodyConstruct | BlockDataBody BlockDataBodyConstruct ;  %recursão à esquerda... %
+
+BlockDataBodyConstruct ::= SpecificationPartConstruct ;
+
+ProgramStmt::= LblDef 'program' ProgramName ;
+
+Lb1Def ::= label;
+
+label ::= Icon;
+
+
+
+

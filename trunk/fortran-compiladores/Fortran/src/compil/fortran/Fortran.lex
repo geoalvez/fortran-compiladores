@@ -1,4 +1,3 @@
-
 package compil.fortran;
 
 import java_cup.runtime.*;
@@ -48,29 +47,35 @@ import static compil.fortran.FortranSym.*;
 ANY			=	.
 upper_case	= [A-Z].
 lower_case	= [a-z].
+LPAREN			= '\('
+RPAREN			= '\)'
 letter		= upper_case | lower_case.
-
+COMMA       = '\,'
+COLON		= '\:'
+DCOLON		= '\::'
+DOT			= '\.'
+SEMICOL		= '\;'
 digit		= [0-9].
-
+INTEGER		= {digit}+
+REAL        = {INTEGER}.{INTEGER}
+LOGICAL 	= {true} | {false}
 ch_bof		= '\b'		% beginning-of-file %.
 ch_eof		= '\e'		% end-of-file %.
-
 id_or_constant	= letter (letter | digit)*	| digit+.
-
 space		= '\040'			% just a space %.
-
 ID			= letter (letter | digit)* | digit+.
 LT			= ".LT." | <
 LE			= ".LE." | <=
 EQ			= ".EQ." | ==
 NE			= ".NE." | #
 GE			= ".GE." | >=
-GT			= ".GT." | >
- 
+GT			= ".GT." | > 
 PLUS		= '\+'
 MINUS		= '\-'
 MULTIPLY	= '\*'
 DIVIDE		= '\/'
+
+
 
 
 %%
@@ -87,9 +92,15 @@ DIVIDE		= '\/'
 "else" {return sym(FortranSym.ELSE);}
 "endif" {return sym(FortranSym.ENDIF);}
 "do" {return sym(FortranSym.DO);}
+"enddo" {return sym(FortranSym.ENDDO);}
+"select" {return sym(FortranSym.SELECT);}
+"case" {return sym(FortranSym.CASE);}
 "while" {return sym(FortranSym.WHILE);}
 "true" {return sym(FortranSym.TRUE);}
 "false" {return sym(FortranSym.FALSE);}
+"continue" {return sym(FortranSym.CONTINUE);}
+"stop" {return sym(FortranSym.STOP);}
+"end" {return sym(FortranSym.END);}
 
 {LT} 	{ return sym(FortranSym.LT); }
 {LE} 	{ return sym(FortranSym.LE); }
@@ -97,13 +108,19 @@ DIVIDE		= '\/'
 {NE} 	{ return sym(FortranSym.NE); }
 {GE} 	{ return sym(FortranSym.GE); }
 {GT} 	{ return sym(FortranSym.GT); }
-
-
 ".AND." { return sym(FortranSym.AND); }
 ".OR." { return sym(FortranSym.OR); } 
 ".NOT." { return sym(FortranSym.NOT); }
+
 
 {PLUS} { return sym(FortranSym.PLUS); }
 {MINUS} { return sym(FortranSym.MINUS); }
 {MULTIPLY} { return sym(FortranSym.MULTIPLY); }
 {DIVIDE} { return sym(FortranSym.DIVIDE); }
+{COMMA} { return sym(FortranSym.COMMA); }
+{COLON} { return sym(FortranSym.COLON); }
+{DCOLON} { return sym(FortranSym.DCOLON); }
+{DOT} { return sym(FortranSym.DOT); }
+{SEMICOL} { return sym(FortranSym.SEMICOL); }
+{LPAREN} { return sym(FortranSym.LPAREN); }
+{RPAREN} { return sym(FortranSym.RPAREN); }
